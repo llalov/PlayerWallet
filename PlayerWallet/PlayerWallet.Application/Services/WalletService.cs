@@ -19,15 +19,15 @@ public class WalletService : IWalletService
 	}
 
 	public decimal Deposit(int playerId, decimal amount, string requestId)
-		=> Apply(playerId, amount, requestId, TransactionType.Deposit);
+		=> ExecuteTransaction(playerId, amount, requestId, TransactionType.Deposit);
 
 	public decimal Withdraw(int playerId, decimal amount, string requestId)
-		=> Apply(playerId, amount, requestId, TransactionType.Withdraw);
+		=> ExecuteTransaction(playerId, amount, requestId, TransactionType.Withdraw);
 
 	public decimal GetBalance(int playerId)
 		=> (_players.Get(playerId) ?? Player.New(playerId)).Balance;
 
-	private decimal Apply(int playerId, decimal amount, string requestId, TransactionType type)
+	private decimal ExecuteTransaction(int playerId, decimal amount, string requestId, TransactionType type)
 	{
 		if (amount <= 0) throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be positive.");
 
